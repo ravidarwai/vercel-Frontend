@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 const api = axios.create({
-    baseURL: '',
+    baseURL: 'https://vercel-backend-g52e.onrender.com',
     withCredentials: true
 })
 
