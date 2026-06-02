@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../style/interview.scss'
 import { useInterview } from '../hooks/useInterview.js'
+import { useAuth } from '../../auth/hooks/useAuth'
 import { useNavigate, useParams } from 'react-router'
 
 
@@ -60,7 +61,15 @@ const RoadMapDay = ({ day }) => (
 const Interview = () => {
     const [ activeNav, setActiveNav ] = useState('technical')
     const { report, getReportById, loading, getResumePdf } = useInterview()
+    const { handleLogout } = useAuth()
     const { interviewId } = useParams()
+
+    const navigate = useNavigate()
+
+    const handleLogoutClick = async () => {
+        await handleLogout()
+        navigate('/login')
+    }
 
     useEffect(() => {
         if (interviewId) {
@@ -90,7 +99,10 @@ const Interview = () => {
                 {/* ── Left Nav ── */}
                 <nav className='interview-nav'>
                     <div className="nav-content">
-                        <p className='interview-nav__label'>Sections</p>
+                        <div className='nav-header-row'>
+                            <p className='interview-nav__label'>Sections</p>
+                            <button onClick={handleLogoutClick} className='button logout-button'>Logout</button>
+                        </div>
                         {NAV_ITEMS.map(item => (
                             <button
                                 key={item.id}

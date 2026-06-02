@@ -1,8 +1,7 @@
 import axios from "axios"
 
-
 const api = axios.create({
-    baseURL: 'https://vercel-backend-g52e.onrender.com',
+    baseURL: import.meta.env.VITE_API_BASE_URL || "",
     withCredentials: true
 })
 
